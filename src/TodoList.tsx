@@ -9,7 +9,7 @@ import CheckCircleOutlineSharpIcon from '@mui/icons-material/CheckCircleOutlineS
 import CheckCircleSharpIcon from '@mui/icons-material/CheckCircleSharp';
 import RestoreFromTrashSharpIcon from '@mui/icons-material/RestoreFromTrashSharp';
 
-type TodolistType = {
+ type TodolistPropsType = {
     todolistId: string
     title: string
     tasks: Array<TasksType>
@@ -29,7 +29,7 @@ export type TasksType = {
     isDone: boolean
 }
 
-export const TodoList = (props: TodolistType) => {
+export const TodoList = (props: TodolistPropsType) => {
 
     const onChangeCheckboxHandler = (taskId: string, isDone: boolean, todolistId: string) => {
         props.changeStatus(taskId, isDone, todolistId)
