@@ -1,5 +1,6 @@
 import {v1} from "uuid";
 import {FilterValueType, TaskStateType, TodolistType} from "../App";
+import {AddTodolistActionType, RemoveTodolistActionType} from "./todolists-reducer";
 
 type addTaskActionType = {
     type: 'ADD-TASK'
@@ -51,6 +52,18 @@ export const tasksReducer = (state: TaskStateType, action: ActionType): TaskStat
             copyState[action.todolistId].map(ts => ts.id === action.taskId ? ts.title = action.title : null)
             return copyState
         }
+        case 'ADD-TODOLIST': {
+            const stateCope = {...state}
+            stateCope[action.todolistId] = []
+            return stateCope
+        }
+        case 'REMOVE-TODOLIST': {
+            const stateCope = {...state}
+
+            delete stateCope[action.todolistId]
+
+            return stateCope
+        }
         default:
             throw new Error('ERROR')
     }
@@ -61,6 +74,8 @@ type ActionType =
     | removeTaskActionType
     | changeTaskStatusActionType
     | changeTaskTitleActionType
+    | AddTodolistActionType
+    | RemoveTodolistActionType
 
 export const addTaskAC = (title: string, todolistId: string): addTaskActionType => {
     return {type: 'ADD-TASK', title, todolistId} as const

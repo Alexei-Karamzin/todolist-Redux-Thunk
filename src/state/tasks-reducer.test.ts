@@ -2,7 +2,13 @@ import { v1 } from "uuid";
 import {
 } from "./todolists-reducer";
 import {TaskStateType} from "../App";
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from "./tasks-reducer";
+import {
+    addTaskAC,
+    changeTaskStatusAC,
+    changeTaskTitleAC,
+    removeTaskAC,
+    tasksReducer
+} from "./tasks-reducer";
 
 test('correct task should be added', ()=>{
     let todolistId1 = v1()
@@ -105,4 +111,5 @@ test('correct task should be change title', ()=>{
     expect(endState[todolistId2][0].title).toBe('beer')
     expect(endState[todolistId1][0].title).toBe('new title')
 })
+
 
