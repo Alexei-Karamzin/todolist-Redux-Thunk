@@ -1,5 +1,11 @@
 import { v1 } from "uuid";
-import {todolistReducer} from "./todolist-reducer";
+import {
+    addTodolistAC,
+    changeTodolistFilterAC,
+    changeTodolistTitleAC,
+    removeTodolistAC,
+    todolistsReducer
+} from "./todolists-reducer";
 import {TodolistType} from "../App";
 
 test('correct todolist should be removed', ()=>{
@@ -11,7 +17,7 @@ test('correct todolist should be removed', ()=>{
         {id: todolistId2, title: 'test_2', filter: "all"}
     ]
 
-    const endState = todolistReducer(startState, {type: 'REMOVE-TODOLIST', todolistId: todolistId1})
+    const endState = todolistsReducer(startState, removeTodolistAC(todolistId1))
 
     expect(endState.length).toBe(1)
     expect(endState[0].id).toBe(todolistId2)
@@ -26,7 +32,7 @@ test('correct todolist should be added', ()=>{
         {id: todolistId2, title: 'test_2', filter: "all"}
     ]
 
-    const endState = todolistReducer(startState, {type: 'ADD-TODOLIST', title: 'new title'})
+    const endState = todolistsReducer(startState, addTodolistAC('new title'))
 
     expect(endState.length).toBe(3)
     expect(endState[2].title).toBe('new title')
@@ -41,7 +47,7 @@ test('correct todolist should be changed title', ()=>{
         {id: todolistId2, title: 'test_2', filter: "all"}
     ]
 
-    const endState = todolistReducer(startState, {type: 'CHANGE-TODOLIST-TITLE', todolistId: todolistId2, title: 'new title'})
+    const endState = todolistsReducer(startState,changeTodolistTitleAC(todolistId2,'new title'))
 
     expect(endState.length).toBe(2)
     expect(endState[1].title).toBe('new title')
@@ -56,7 +62,7 @@ test('correct todolist changed filter', ()=>{
         {id: todolistId2, title: 'test_2', filter: "all"}
     ]
 
-    const endState = todolistReducer(startState, {type: 'CHANGE-TODOLIST-FILTER', value: 'completed', todolistId: todolistId2})
+    const endState = todolistsReducer(startState, changeTodolistFilterAC('completed', todolistId2))
 
     expect(endState.length).toBe(2)
     expect(endState[1].filter).toBe('completed')
