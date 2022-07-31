@@ -49,11 +49,7 @@ export const todolistsReducer = (state: Array<TodolistType> = initialState, acti
             return [...state]
         }
         case 'CHANGE-TODOLIST-FILTER': {
-            let todolist = state.find(tl => tl.id === action.todolistId)
-            if (todolist) {
-                todolist.filter = action.value
-            }
-            return [...state]
+            return state.map(tl => tl.id === action.todolistId ? {...tl, filter: action.value} : tl)
         }
         default:
             return state

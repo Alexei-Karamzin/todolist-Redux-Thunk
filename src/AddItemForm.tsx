@@ -1,26 +1,29 @@
-import React, {KeyboardEvent, useState} from "react";
+import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 import {IconButton, TextField} from "@mui/material";
 import AddBoxIcon from '@mui/icons-material/AddBox';
-
 
 type addItemFormPropsType = {
     addItem: (title: string) => void
 }
 
-export const AddItemForm = (props: addItemFormPropsType) => {
+export const AddItemForm = React.memo((props: addItemFormPropsType) => {
+
+    console.log('AddItemForm call')
 
     const [title, setTitle] = useState('')
     const [error, setError] = useState<string | null>(null)
 
     const onKeyPressHandler = (e: KeyboardEvent<HTMLDivElement>) => {
+        if (error !== null) {
+            setError(null)
+        }
         if (e.charCode === 13) {
             addTaskOnClickHandler()
         }
     }
 
-    const onChangeInputHandler = (newTitle: string) => {
-        setTitle(newTitle)
-        setError(null)
+    const onChangeInputHandler = (newTitle: ChangeEvent<HTMLInputElement>) => {
+        setTitle(newTitle.currentTarget.value)
     }
 
     const addTaskOnClickHandler = () => {
@@ -37,8 +40,8 @@ export const AddItemForm = (props: addItemFormPropsType) => {
             label={'text'}
             value={title}
             variant="outlined"
-            onKeyPress={(e) => onKeyPressHandler(e)}
-            onChange={(e) => onChangeInputHandler(e.currentTarget.value)}
+            onKeyPress={onKeyPressHandler}
+            onChange={onChangeInputHandler}
             error={!!error}
             helperText={error}
         />
@@ -46,6 +49,5 @@ export const AddItemForm = (props: addItemFormPropsType) => {
         <IconButton onClick={addTaskOnClickHandler}>
             <AddBoxIcon />
         </IconButton>
-        {/*{error && <div className={'error-message'}>Field is required</div>}*/}
     </div>
-}
+})

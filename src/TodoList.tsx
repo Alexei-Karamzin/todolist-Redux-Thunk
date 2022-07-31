@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback} from "react";
 import {FilterValueType} from "./App";
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditebleSpan";
@@ -29,9 +29,12 @@ export type TasksType = {
     isDone: boolean
 }
 
-export const TodoList = (props: TodolistPropsType) => {
+export const TodoList = React.memo((props: TodolistPropsType) => {
+
+    console.log('todolist call')
 
     const onChangeCheckboxHandler = (taskId: string, isDone: boolean, todolistId: string) => {
+        debugger
         props.changeStatus(taskId, isDone, todolistId)
     }
 
@@ -39,12 +42,20 @@ export const TodoList = (props: TodolistPropsType) => {
         props.removeTodolist(todolistId)
     }
 
-    const addTask = (title: string) => {
+    const addTask = useCallback((title: string) => {
         props.addTask(title, props.todolistId)
-    }
+    }, [props.addTask, props.todolistId])
 
-    const onChangeTitleHandler = (title: string) => {
+    const onChangeTitleHandler = useCallback((title: string) => {
         props.onChangeTitle(props.todolistId, title)
+    }, [props.onChangeTitle, props.todolistId])
+
+    let taskForTodolist = props.tasks
+    if (props.filter === 'completed') {
+        taskForTodolist = props.tasks.filter(task => task.isDone === true)
+    }
+    if (props.filter === 'active') {
+        taskForTodolist = props.tasks.filter(task => task.isDone === false)
     }
 
     return (
@@ -61,7 +72,7 @@ export const TodoList = (props: TodolistPropsType) => {
             />
             <div>
                 {
-                    props.tasks.map((el) => {
+                    taskForTodolist.map((el) => {
 
                         const onChangeTitleHandler = (title: string) => {
                             props.changeTaskTitle(props.todolistId, el.id, title)
@@ -106,7 +117,7 @@ export const TodoList = (props: TodolistPropsType) => {
             </div>
         </div>
     )
-}
+})
 
 
 // react-scripts --openssl-legacy-provider start
