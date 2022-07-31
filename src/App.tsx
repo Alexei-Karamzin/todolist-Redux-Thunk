@@ -1,10 +1,18 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './App.css';
 import {TasksType, TodoList} from "./TodoList";
-import {v1} from 'uuid';
 import {AddItemForm} from "./AddItemForm";
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import {useDispatch, useSelector} from "react-redux";
+import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./state/tasks-reducer";
+import {
+    addTodolistAC,
+    changeTodolistFilterAC,
+    changeTodolistTitleAC,
+    removeTodolistAC
+} from "./state/todolists-reducer";
+import {AppRootStateType} from "./state/store";
 
 export type FilterValueType = 'all' | 'completed' | 'active'
 
@@ -20,80 +28,34 @@ export type TaskStateType = {
 
 export function App() {
 
-    const todolistId1 = v1()
-    const todolistId2 = v1()
-
-    const [todolists, setTodolists] = useState<Array<TodolistType>>([
-        {id: todolistId1, title: 'tl 1', filter: "all"},
-        {id: todolistId2, title: 'tl 2', filter: 'all'}
-    ])
-    const [tasks, setTasks] = useState<TaskStateType>({
-        [todolistId1]: [
-            {id: v1(), title: "HTML&CSS", isDone: true},
-            {id: v1(), title: "JS", isDone: true},
-            {id: v1(), title: "ReactJS", isDone: false},
-            {id: v1(), title: "REST API", isDone: false}
-        ],
-        [todolistId2]: [
-            {id: v1(), title: "beer", isDone: true},
-            {id: v1(), title: "milk", isDone: false},
-            {id: v1(), title: "soda", isDone: false},
-        ]
-    })
+    const dispatch = useDispatch()
+    const todolists = useSelector<AppRootStateType, Array<TodolistType>>(state => state.todolists)
+    const tasks = useSelector<AppRootStateType, TaskStateType>(state => state.tasks)
 
     const addTodolist = (title: string) => {
-        let todolist: TodolistType = {
-            id: v1(),
-            title: title,
-            filter: "all"
-        }
-        setTodolists([todolist, ...todolists])
-        setTasks({
-            ...tasks,
-            [todolist.id]: []
-        })
+        dispatch(addTodolistAC(title))
     }
-
     const changeFilter = (value: FilterValueType, todolistId: string) => {
-        let todolist = todolists.find(tl => tl.id === todolistId)
-        if (todolist) {
-            todolist.filter = value
-            setTodolists([...todolists])
-        }
+        dispatch(changeTodolistFilterAC(value, todolistId))
     }
     const removeTodolist = (todolistId: string) => {
-        let newTodolists = todolists.filter(tl => tl.id !== todolistId)
-
-        setTodolists([...newTodolists])
+        dispatch(removeTodolistAC(todolistId))
     }
     const changeTodolistTitle = (todolistId: string, title: string) => {
-        todolists.map(tl => tl.id === todolistId ? tl.title = title : null)
-        setTodolists([...todolists])
+        dispatch(changeTodolistTitleAC(todolistId, title))
     }
 
     const changeTaskTitle = (todolistId: string, taskId: string, title: string) => {
-        tasks[todolistId].map(ts => ts.id === taskId ? ts.title = title : null)
-        setTasks({...tasks})
+        dispatch(changeTaskTitleAC(todolistId, taskId, title))
     }
     const removeTask = (taskId: string, todolistId: string) => {
-        let resultTasks = tasks[todolistId].filter(task => task.id !== taskId)
-        tasks[todolistId] = resultTasks
-        setTasks({...tasks})
+        dispatch(removeTaskAC(taskId, todolistId))
     }
     const changeTaskStatus = (taskId: string, isDone: boolean, todolistId: string) => {
-        let changeTask = tasks[todolistId].find(t => t.id === taskId)
-        if (changeTask) {
-            changeTask.isDone = isDone
-        }
-
-        setTasks({...tasks})
+        dispatch(changeTaskStatusAC(taskId, isDone, todolistId))
     }
     const addTask = (title: string, todolistId: string) => {
-        let newTask = {id: v1(), title, isDone: false}
-        let todolistTask = tasks[todolistId]
-        let newTasks = [newTask, ...todolistTask]
-        tasks[todolistId] = newTasks
-        setTasks({...tasks})
+        dispatch(addTaskAC(title, todolistId))
     }
 
     return (
@@ -133,21 +95,21 @@ export function App() {
 
                             return <Grid item>
                                 <Paper elevation={3} style={{padding: '10px'}}>
-                                <TodoList
-                                    key={tl.id}
-                                    todolistId={tl.id}
-                                    title={tl.title}
-                                    tasks={tasksForTodolist}
-                                    removeTask={removeTask}
-                                    changeFilter={changeFilter}
-                                    addTask={addTask}
-                                    changeStatus={changeTaskStatus}
-                                    removeTodolist={removeTodolist}
-                                    changeTaskTitle={changeTaskTitle}
-                                    onChangeTitle={changeTodolistTitle}
-                                    filter={tl.filter}
-                                />
-                                    </Paper>
+                                    <TodoList
+                                        key={tl.id}
+                                        todolistId={tl.id}
+                                        title={tl.title}
+                                        tasks={tasksForTodolist}
+                                        removeTask={removeTask}
+                                        changeFilter={changeFilter}
+                                        addTask={addTask}
+                                        changeStatus={changeTaskStatus}
+                                        removeTodolist={removeTodolist}
+                                        changeTaskTitle={changeTaskTitle}
+                                        onChangeTitle={changeTodolistTitle}
+                                        filter={tl.filter}
+                                    />
+                                </Paper>
                             </Grid>
                         })
                     }
