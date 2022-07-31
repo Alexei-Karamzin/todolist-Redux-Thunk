@@ -9,7 +9,7 @@ import CheckCircleOutlineSharpIcon from '@mui/icons-material/CheckCircleOutlineS
 import CheckCircleSharpIcon from '@mui/icons-material/CheckCircleSharp';
 import RestoreFromTrashSharpIcon from '@mui/icons-material/RestoreFromTrashSharp';
 
- type TodolistPropsType = {
+type TodolistPropsType = {
     todolistId: string
     title: string
     tasks: Array<TasksType>
@@ -34,7 +34,6 @@ export const TodoList = React.memo((props: TodolistPropsType) => {
     console.log('todolist call')
 
     const onChangeCheckboxHandler = (taskId: string, isDone: boolean, todolistId: string) => {
-        debugger
         props.changeStatus(taskId, isDone, todolistId)
     }
 
@@ -60,16 +59,13 @@ export const TodoList = React.memo((props: TodolistPropsType) => {
 
     return (
         <div>
-            <EditableSpan
-                title={props.title}
-                onChangeInputSpan={onChangeTitleHandler}
-            />
-            <CancelPresentationIcon
-                onClick={() => removeTodolistHandler(props.todolistId)}
-            />
-            <AddItemForm
-                addItem={addTask}
-            />
+            <h3>
+                <EditableSpan title={props.title}
+                              onChangeInputSpan={onChangeTitleHandler}
+                />
+                <CancelPresentationIcon onClick={() => removeTodolistHandler(props.todolistId)}/>
+            </h3>
+            <AddItemForm addItem={addTask}/>
             <div>
                 {
                     taskForTodolist.map((el) => {
@@ -82,14 +78,14 @@ export const TodoList = React.memo((props: TodolistPropsType) => {
 
                         return <div className={el.isDone ? 'isDone' : ''} key={el.id}>
                             <Checkbox
-                                icon={<CheckCircleOutlineSharpIcon />}
-                                checkedIcon={<CheckCircleSharpIcon />}
+                                icon={<CheckCircleOutlineSharpIcon/>}
+                                checkedIcon={<CheckCircleSharpIcon/>}
                                 checked={el.isDone}
                                 onChange={(e) => onChangeCheckboxHandler(el.id, e.currentTarget.checked, props.todolistId)}
                             />
                             <EditableSpan title={el.title} onChangeInputSpan={onChangeTitleHandler}/>
                             <IconButton onClick={removeTaskHandler}>
-                                <RestoreFromTrashSharpIcon />
+                                <RestoreFromTrashSharpIcon/>
                             </IconButton>
                         </div>
                     })

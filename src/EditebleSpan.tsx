@@ -1,4 +1,4 @@
-import React, {useState, ChangeEvent} from "react";
+import React, {useState, ChangeEvent, useCallback} from "react";
 
 type EditableSpanPropsType = {
     title: string
@@ -23,7 +23,7 @@ export const EditableSpan = React.memo((props: EditableSpanPropsType) => {
     const onChangeInputHandler = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.currentTarget.value)
 
     return editMode
-        ? <input onChange={(e) => onChangeInputHandler(e)}
+        ? <input onChange={onChangeInputHandler}
                  value={title}
                  onBlur={terminateEditModeHandler}
                  autoFocus

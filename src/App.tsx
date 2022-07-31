@@ -54,7 +54,6 @@ export function App() {
         dispatch(removeTaskAC(taskId, todolistId))
     },[dispatch])
     const changeTaskStatus = useCallback((taskId: string, isDone: boolean, todolistId: string) => {
-        debugger
         dispatch(changeTaskStatusAC(taskId, isDone, todolistId))
     },[dispatch])
     const addTask = useCallback((title: string, todolistId: string) => {
