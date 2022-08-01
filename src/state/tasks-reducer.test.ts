@@ -1,7 +1,7 @@
 import { v1 } from "uuid";
 import {
 } from "./todolists-reducer";
-import {TaskStateType} from "../App";
+import {TaskStateType} from "../App/App";
 import {
     addTaskAC,
     changeTaskStatusAC,

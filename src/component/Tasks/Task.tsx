@@ -1,10 +1,10 @@
-import React from "react";
+import React, {useCallback} from "react";
 import {Checkbox, IconButton} from "@mui/material";
 import CheckCircleOutlineSharpIcon from "@mui/icons-material/CheckCircleOutlineSharp";
 import CheckCircleSharpIcon from "@mui/icons-material/CheckCircleSharp";
-import {EditableSpan} from "./EditebleSpan";
+import {EditableSpan} from "../EditebleSpan/EditebleSpan";
 import RestoreFromTrashSharpIcon from "@mui/icons-material/RestoreFromTrashSharp";
-import {TasksType} from "./TodoList";
+import {TasksType} from "../Todolists/TodoList";
 
 
 type TaskPropsType = {
@@ -16,9 +16,9 @@ type TaskPropsType = {
 }
 
 export const Task = React.memo((props: TaskPropsType) => {
-    const onChangeTitleHandler = (title: string) => {
+    const onChangeTitleHandler = useCallback((title: string) => {
         props.changeTaskTitle(props.todolistId, props.task.id, title)
-    }
+    },[props.changeTaskTitle,props.todolistId,props.task.id])
 
     const removeTaskHandler = () => props.removeTask(props.task.id, props.todolistId)
 
