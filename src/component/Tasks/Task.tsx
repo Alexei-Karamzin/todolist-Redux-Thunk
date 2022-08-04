@@ -2,7 +2,7 @@ import React, {useCallback} from "react";
 import {Checkbox, IconButton} from "@mui/material";
 import CheckCircleOutlineSharpIcon from "@mui/icons-material/CheckCircleOutlineSharp";
 import CheckCircleSharpIcon from "@mui/icons-material/CheckCircleSharp";
-import {EditableSpan} from "../EditebleSpan/EditebleSpan";
+import {EditableSpan} from "../EditebleSpan/EditableSpan";
 import RestoreFromTrashSharpIcon from "@mui/icons-material/RestoreFromTrashSharp";
 import {TasksType} from "../Todolists/TodoList";
 
@@ -12,7 +12,7 @@ type TaskPropsType = {
     changeTaskTitle: (todolistId: string, taskId: string, title: string) => void
     removeTask: (id: string, todolistId: string) => void
     todolistId: string
-    onChangeCheckboxHandler: (taskId: string, isDone: boolean, todolistId: string) => void
+    changeTaskCheckbox: (taskId: string, isDone: boolean, todolistId: string) => void
 }
 
 export const Task = React.memo((props: TaskPropsType) => {
@@ -27,7 +27,7 @@ export const Task = React.memo((props: TaskPropsType) => {
             icon={<CheckCircleOutlineSharpIcon/>}
             checkedIcon={<CheckCircleSharpIcon/>}
             checked={props.task.isDone}
-            onChange={(e) => props.onChangeCheckboxHandler(props.task.id, e.currentTarget.checked, props.todolistId)}
+            onChange={(e) => props.changeTaskCheckbox(props.task.id, e.currentTarget.checked, props.todolistId)}
         />
         <EditableSpan title={props.task.title} onChangeInputSpan={onChangeTitleHandler}/>
         <IconButton onClick={removeTaskHandler}>

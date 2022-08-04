@@ -5,13 +5,13 @@ import {AddItemForm} from "../component/AddItemForm/AddItemForm";
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import {useDispatch, useSelector} from "react-redux";
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "../state/tasks-reducer";
+import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "../state/reducers/tasks-reducer";
 import {
     addTodolistAC,
     changeTodolistFilterAC,
     changeTodolistTitleAC,
     removeTodolistAC
-} from "../state/todolists-reducer";
+} from "../state/reducers/todolists-reducer";
 import {AppRootStateType} from "../state/store";
 
 export type FilterValueType = 'all' | 'completed' | 'active'
@@ -25,6 +25,7 @@ export type TodolistType = {
 export type TaskStateType = {
     [key: string]: Array<TasksType>
 }
+
 
 export function App() {
 

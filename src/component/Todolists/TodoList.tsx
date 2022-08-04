@@ -1,7 +1,7 @@
 import React, {useCallback} from "react";
 import {FilterValueType} from "../../App/App";
 import {AddItemForm} from "../AddItemForm/AddItemForm";
-import {EditableSpan} from "../EditebleSpan/EditebleSpan";
+import {EditableSpan} from "../EditebleSpan/EditableSpan";
 
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
 import {Button} from "@mui/material";
@@ -72,7 +72,7 @@ export const TodoList = React.memo((props: TodolistPropsType) => {
                         removeTask={props.removeTask}
                         todolistId={props.todolistId}
                         changeTaskTitle={props.changeTaskTitle}
-                        onChangeCheckboxHandler={onChangeCheckboxHandler}
+                        changeTaskCheckbox={onChangeCheckboxHandler}
                     />)
                 }
             </div>
