@@ -26,7 +26,6 @@ export type TaskStateType = {
     [key: string]: Array<TasksType>
 }
 
-
 export function App() {
 
     console.log('App call')
