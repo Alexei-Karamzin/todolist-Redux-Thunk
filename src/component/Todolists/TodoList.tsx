@@ -6,33 +6,29 @@ import {EditableSpan} from "../EditebleSpan/EditableSpan";
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
 import {Button} from "@mui/material";
 import {Task} from "../Tasks/Task";
+import {TaskStatuses, TaskType} from "../../api/tasks-api";
 
 type TodolistPropsType = {
     todolistId: string
     title: string
-    tasks: Array<TasksType>
+    tasks: Array<TaskType>
     removeTask: (id: string, todolistId: string) => void
     changeFilter: (value: FilterValueType, todolistId: string) => void
     addTask: (title: string, todolistId: string) => void
-    changeStatus: (id: string, isDone: boolean, todolistId: string) => void
+    changeStatus: (id: string, status: TaskStatuses, todolistId: string) => void
     removeTodolist: (id: string) => void
     changeTaskTitle: (todolistId: string, taskId: string, title: string) => void
     onChangeTitle: (todolistId: string, title: string) => void
     filter: FilterValueType
 }
 
-export type TasksType = {
-    id: string,
-    title: string,
-    isDone: boolean
-}
 
 export const TodoList = React.memo((props: TodolistPropsType) => {
 
     console.log('todolist call')
 
-    const onChangeCheckboxHandler = useCallback((taskId: string, isDone: boolean, todolistId: string) => {
-        props.changeStatus(taskId, isDone, todolistId)
+    const onChangeCheckboxHandler = useCallback((taskId: string, status: TaskStatuses, todolistId: string) => {
+        props.changeStatus(taskId, status, todolistId)
     }, [props.changeStatus])
 
     const removeTodolistHandler = (todolistId: string) => {
@@ -49,10 +45,10 @@ export const TodoList = React.memo((props: TodolistPropsType) => {
 
     let taskForTodolist = props.tasks
     if (props.filter === 'completed') {
-        taskForTodolist = props.tasks.filter(task => task.isDone === true)
+        taskForTodolist = props.tasks.filter(task => task.status === TaskStatuses.Completed)
     }
     if (props.filter === 'active') {
-        taskForTodolist = props.tasks.filter(task => task.isDone === false)
+        taskForTodolist = props.tasks.filter(task => task.status === TaskStatuses.New)
     }
 
     return (
@@ -72,7 +68,7 @@ export const TodoList = React.memo((props: TodolistPropsType) => {
                         removeTask={props.removeTask}
                         todolistId={props.todolistId}
                         changeTaskTitle={props.changeTaskTitle}
-                        changeTaskCheckbox={onChangeCheckboxHandler}
+                        changeTaskStatus={onChangeCheckboxHandler}
                     />)
                 }
             </div>

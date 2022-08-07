@@ -3,13 +3,15 @@ import {ComponentStory, ComponentMeta} from '@storybook/react';
 
 import {action} from "@storybook/addon-actions";
 import {Task} from "./Task";
+import {v1} from "uuid";
+import {TaskPriority} from "../../api/tasks-api";
 
 export default {
     title: 'TODOLIST/Task',
     component: Task,
     args: {
         todolistId: '1',
-        changeTaskCheckbox: action('changeTaskStatus'),
+        changeTaskStatus: action('changeTaskStatus'),
         changeTaskTitle: action('changeTaskTitle'),
         removeTask: action('removeTask')
     }
@@ -21,9 +23,9 @@ export const TaskIsDoneStory = Template.bind({});
 export const TaskIsNotDoneStory = Template.bind({});
 
 TaskIsDoneStory.args = {
-    task: {id: '1', isDone: true, title: 'is done task'}
+    task: {id: v1(), title: 'HTML&CSS', description: '', todoListId: 'todolistId1', order: 0, status: 1, priority: TaskPriority.Low, startDate: '', deadline: '', addedDate: ''}
 };
 
 TaskIsNotDoneStory.args = {
-    task: {id: '1', isDone: false, title: 'is done task'}
+    task: {id: v1(), title: '2', description: '', todoListId: 'todolistId1', order: 0, status: 1, priority: TaskPriority.Low, startDate: '', deadline: '', addedDate: ''}
 };

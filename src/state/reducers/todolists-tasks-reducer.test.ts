@@ -2,6 +2,7 @@ import {TaskStateType, TodolistType} from "../../App/App";
 import {tasksReducer} from "./tasks-reducer";
 import {addTodolistAC, removeTodolistAC, todolistsReducer} from "./todolists-reducer";
 import {v1} from "uuid";
+import {TaskPriority, TaskStatuses} from "../../api/tasks-api";
 
 
 test('property with todolistId should be added', ()=>{
@@ -23,10 +24,10 @@ test('property with todolistId should be added', ()=>{
 test('property with todolistId should be deleted', ()=>{
     const startState: TaskStateType = {
         'todolistId1': [
-            {id: v1(), title: "HTML&CSS", isDone: true},
-            {id: v1(), title: "JS", isDone: true},
-            {id: v1(), title: "ReactJS", isDone: false},
-            {id: v1(), title: "REST API", isDone: false}
+            {id: v1(), title: "HTML&CSS", description: '', todoListId: 'todolistId1', order: 0, status: 1, priority: TaskPriority.Low,startDate: '', deadline: '', addedDate: ''},
+            {id: v1(), title: "JS", description: '', todoListId: 'todolistId1', order: 0, status: 1, priority: TaskPriority.Low,startDate: '', deadline: '', addedDate: ''},
+            {id: v1(), title: "ReactJS", description: '', todoListId: 'todolistId1', order: 0, status: 1, priority: TaskPriority.Low,startDate: '', deadline: '', addedDate: ''},
+            {id: v1(), title: "REST API", description: '', todoListId: 'todolistId1', order: 0, status: 1, priority: TaskPriority.Low,startDate: '', deadline: '', addedDate: ''}
         ],
         'todolistId2': [
             {id: v1(), title: "beer", isDone: true},
