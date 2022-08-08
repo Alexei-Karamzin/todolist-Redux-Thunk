@@ -1,13 +1,14 @@
-import {TaskStateType, TodolistType} from "../../App/App";
+import {TaskStateType} from "../../App/App";
 import {tasksReducer} from "./tasks-reducer";
-import {addTodolistAC, removeTodolistAC, todolistsReducer} from "./todolists-reducer";
+import {addTodolistAC, removeTodolistAC, TodolistDomainType, todolistsReducer} from "./todolists-reducer";
 import {v1} from "uuid";
-import {TaskPriority, TaskStatuses} from "../../api/tasks-api";
+import {TaskPriority} from "../../api/tasks-api";
 
-
-test('property with todolistId should be added', ()=>{
+test('property with todolistId should be added', () => {
     const startTaskState: TaskStateType = {}
-    const startTodolistState: Array<TodolistType> = []
+    const startTodolistState: Array<TodolistDomainType> = [
+        {id: '1', order: 1, title: 'title', addedDate: '', filter: "all"}
+    ]
 
     const action = addTodolistAC('new todolist')
     const endTasksState = tasksReducer(startTaskState, action)
@@ -21,18 +22,35 @@ test('property with todolistId should be added', ()=>{
     expect(idFromTodolists).toBe(action.todolistId)
 })
 
-test('property with todolistId should be deleted', ()=>{
+test('property with todolistId should be deleted', () => {
     const startState: TaskStateType = {
         'todolistId1': [
-            {id: v1(), title: "HTML&CSS", description: '', todoListId: 'todolistId1', order: 0, status: 1, priority: TaskPriority.Low,startDate: '', deadline: '', addedDate: ''},
-            {id: v1(), title: "JS", description: '', todoListId: 'todolistId1', order: 0, status: 1, priority: TaskPriority.Low,startDate: '', deadline: '', addedDate: ''},
-            {id: v1(), title: "ReactJS", description: '', todoListId: 'todolistId1', order: 0, status: 1, priority: TaskPriority.Low,startDate: '', deadline: '', addedDate: ''},
-            {id: v1(), title: "REST API", description: '', todoListId: 'todolistId1', order: 0, status: 1, priority: TaskPriority.Low,startDate: '', deadline: '', addedDate: ''}
+            {
+                id: v1(),
+                title: "HTML&CSS",
+                description: '',
+                todoListId: 'todolistId1',
+                order: 0,
+                status: 1,
+                priority: TaskPriority.Low,
+                startDate: '',
+                deadline: '',
+                addedDate: ''
+            }
         ],
         'todolistId2': [
-            {id: v1(), title: "beer", isDone: true},
-            {id: v1(), title: "milk", isDone: false},
-            {id: v1(), title: "soda", isDone: false},
+            {
+                id: v1(),
+                title: "M3",
+                description: '',
+                todoListId: 'todolistId2',
+                order: 0,
+                status: 1,
+                priority: TaskPriority.Low,
+                startDate: '',
+                deadline: '',
+                addedDate: ''
+            }
         ]
     }
 
