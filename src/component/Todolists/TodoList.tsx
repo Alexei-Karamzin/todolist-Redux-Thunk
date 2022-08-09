@@ -1,4 +1,4 @@
-import React, {useCallback} from "react";
+import React, {useCallback, useEffect} from "react";
 import {FilterValueType} from "../../App/App";
 import {AddItemForm} from "../AddItemForm/AddItemForm";
 import {EditableSpan} from "../EditebleSpan/EditableSpan";
@@ -7,6 +7,8 @@ import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
 import {Button} from "@mui/material";
 import {Task} from "../Tasks/Task";
 import {TaskStatuses, TaskType} from "../../api/tasks-api";
+import {useDispatch} from "react-redux";
+import { fetchTasksTC } from "../../state/reducers/tasks-reducer";
 
 type TodolistPropsType = {
     todolistId: string
@@ -25,7 +27,11 @@ type TodolistPropsType = {
 
 export const TodoList = React.memo((props: TodolistPropsType) => {
 
-    console.log('todolist call')
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(fetchTasksTC(props.todolistId))
+    }, [])
 
     const onChangeCheckboxHandler = useCallback((taskId: string, status: TaskStatuses, todolistId: string) => {
         props.changeStatus(taskId, status, todolistId)

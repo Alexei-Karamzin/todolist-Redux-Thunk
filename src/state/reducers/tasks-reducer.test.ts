@@ -1,7 +1,8 @@
 import {v1} from "uuid";
 import {TaskStateType} from "../../App/App";
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from "./tasks-reducer";
+import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, setTaskAC, tasksReducer} from "./tasks-reducer";
 import {TaskPriority, TaskStatuses} from "../../api/tasks-api";
+import {setTodolistAC} from "./todolists-reducer";
 
 test('correct task should be added', ()=>{
     let todolistId1 = v1()
@@ -106,3 +107,36 @@ test('correct task should be change title', ()=>{
 })
 
 
+test('empty arrays should be added when we set todolists', ()=>{
+
+    const endState = tasksReducer({}, setTodolistAC(
+        [
+            {id: '1', title: 'HTML&CSS', order: 0, addedDate: ''},
+            {id: '2', title: 'HTML&CSS', order: 0, addedDate: ''}
+        ]
+    ))
+
+    const keys = Object.keys(endState)
+
+    expect(keys.length).toBe(2)
+    expect(endState['1']).toStrictEqual([])
+    expect(endState['2']).toStrictEqual([])
+})
+
+
+test('tasks should be added for todolists', ()=>{
+
+    const endState = tasksReducer({
+        'todolistId1': [],
+        'todolistId2': []
+    }, setTaskAC([
+        {id: '1', title: 'HTML&CSS', description: '', todoListId: 'todolistId1', order: 0, status: 1, priority: TaskPriority.Low,startDate: '', deadline: '', addedDate: ''},
+        {id: '2', title: 'HTML&CSS', description: '', todoListId: 'todolistId1', order: 0, status: 1, priority: TaskPriority.Low,startDate: '', deadline: '', addedDate: ''},
+        {id: '3', title: 'HTML&CSS', description: '', todoListId: 'todolistId1', order: 0, status: 1, priority: TaskPriority.Low,startDate: '', deadline: '', addedDate: ''},
+        {id: '4', title: 'HTML&CSS', description: '', todoListId: 'todolistId1', order: 0, status: 1, priority: TaskPriority.Low,startDate: '', deadline: '', addedDate: ''}
+    ], 'todolistId1'
+    ))
+
+    expect(endState['todolistId1'].length).toBe(4)
+    expect(endState['todolistId2'].length).toBe(0)
+})
