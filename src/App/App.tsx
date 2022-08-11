@@ -13,8 +13,9 @@ import {
     removeTodolistAC,
     TodolistDomainType
 } from "../state/reducers/todolists-reducer";
-import {AppRootStateType} from "../state/store";
-import {TaskStatuses, TaskType} from "../api/tasks-api";
+import {AppRootStateType, useAppDispatch} from "../state/store";
+import {tasksApi, TaskStatuses, TaskType} from "../api/tasks-api";
+import {todolistsApi} from "../api/todolists-api";
 
 export type FilterValueType = 'all' | 'completed' | 'active'
 
@@ -25,7 +26,7 @@ export type TaskStateType = {
 
 export function App() {
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TaskStateType>(state => state.tasks)
 
@@ -50,6 +51,7 @@ export function App() {
         dispatch(changeTaskTitleAC(todolistId, taskId, title))
     }, [dispatch])
     const removeTask = useCallback((taskId: string, todolistId: string) => {
+
         dispatch(removeTaskAC(taskId, todolistId))
     }, [dispatch])
     const changeTaskStatus = useCallback((taskId: string, status: TaskStatuses, todolistId: string) => {
