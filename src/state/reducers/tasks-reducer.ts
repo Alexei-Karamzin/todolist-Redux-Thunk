@@ -1,4 +1,3 @@
-import {v1} from "uuid";
 import {TaskStateType} from "../../App/App";
 import {
     AddTodolistActionType,
@@ -47,7 +46,7 @@ export const tasksReducer = (state: TaskStateType = initialState, action: Action
         }
         case 'ADD-TODOLIST': {
             const stateCope = {...state}
-            stateCope[action.todolistId] = []
+            stateCope[action.todolist.id] = []
             return stateCope
         }
         case 'REMOVE-TODOLIST': {
@@ -131,5 +130,12 @@ export const addTaskTC = (todolistId: string, title: string) => (dispatch: Dispa
     tasksApi.createTask(todolistId, title)
         .then( res => {
             dispatch(addTaskAC(res.data.data.item))
+        })
+}
+
+export const changeTaskTitleTC = (taskId: string, title: string, todolistId: string) => (dispatch: Dispatch) => {
+    tasksApi.updateTask(todolistId, taskId, title)
+        .then( res => {
+            dispatch(changeTaskTitleAC(todolistId, taskId, title))
         })
 }
