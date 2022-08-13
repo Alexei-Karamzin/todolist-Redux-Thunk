@@ -25,7 +25,7 @@ export const Task = React.memo((props: TaskPropsType) => {
         props.changeTaskStatus(props.task.id, newIsDoneValue ? TaskStatuses.Completed : TaskStatuses.New, props.todolistId)
     }
 
-    const removeTaskHandler = () => props.removeTask(props.task.id, props.todolistId)
+    const removeTaskHandler = () => props.removeTask(props.todolistId, props.task.id)
 
     return <div className={props.task.status === TaskStatuses.Completed ? 'isDone' : ''} key={props.task.id}>
         <Checkbox

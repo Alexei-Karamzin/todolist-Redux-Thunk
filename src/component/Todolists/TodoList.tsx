@@ -7,7 +7,6 @@ import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
 import {Button} from "@mui/material";
 import {Task} from "../Tasks/Task";
 import {TaskStatuses, TaskType} from "../../api/tasks-api";
-import {useDispatch} from "react-redux";
 import { fetchTasksTC } from "../../state/reducers/tasks-reducer";
 import {useAppDispatch} from "../../state/store";
 

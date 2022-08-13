@@ -10,23 +10,26 @@ test('correct task should be added', ()=>{
 
     const startState: TaskStateType = {
         [todolistId1]: [
-            {id: v1(), title: 'HTML&CSS', description: '', todoListId: 'todolistId1', order: 0, status: 1, priority: TaskPriority.Low,startDate: '', deadline: '', addedDate: ''},
-            {id: v1(), title: 'HTML&CSS', description: '', todoListId: 'todolistId1', order: 0, status: 1, priority: TaskPriority.Low,startDate: '', deadline: '', addedDate: ''},
-            {id: v1(), title: 'HTML&CSS', description: '', todoListId: 'todolistId1', order: 0, status: 1, priority: TaskPriority.Low,startDate: '', deadline: '', addedDate: ''},
-            {id: v1(), title: 'HTML&CSS', description: '', todoListId: 'todolistId1', order: 0, status: 1, priority: TaskPriority.Low,startDate: '', deadline: '', addedDate: ''}
+            {id: v1(), title: 'HTML&CSS1', description: '', todoListId: todolistId1, order: 0, status: 1, priority: TaskPriority.Low,startDate: '', deadline: '', addedDate: ''},
+            {id: v1(), title: 'HTML&CSS2', description: '', todoListId: todolistId1, order: 0, status: 1, priority: TaskPriority.Low,startDate: '', deadline: '', addedDate: ''},
+            {id: v1(), title: 'HTML&CSS3', description: '', todoListId: todolistId1, order: 0, status: 1, priority: TaskPriority.Low,startDate: '', deadline: '', addedDate: ''},
+            {id: v1(), title: 'HTML&CSS4', description: '', todoListId: todolistId1, order: 0, status: 1, priority: TaskPriority.Low,startDate: '', deadline: '', addedDate: ''}
         ],
         [todolistId2]: [
-            {id: v1(), title: 'test 1', description: '', todoListId: 'todolistId1', order: 0, status: 1, priority: TaskPriority.Low,startDate: '', deadline: '', addedDate: ''},
-            {id: v1(), title: 'test 2', description: '', todoListId: 'todolistId1', order: 0, status: 1, priority: TaskPriority.Low,startDate: '', deadline: '', addedDate: ''},
-            {id: v1(), title: 'test 3', description: '', todoListId: 'todolistId1', order: 0, status: 1, priority: TaskPriority.Low,startDate: '', deadline: '', addedDate: ''},
+            {id: v1(), title: 'test 1', description: '', todoListId: todolistId2, order: 0, status: 1, priority: TaskPriority.Low,startDate: '', deadline: '', addedDate: ''},
+            {id: v1(), title: 'test 2', description: '', todoListId: todolistId2, order: 0, status: 1, priority: TaskPriority.Low,startDate: '', deadline: '', addedDate: ''},
+            {id: v1(), title: 'test 3', description: '', todoListId: todolistId2, order: 0, status: 1, priority: TaskPriority.Low,startDate: '', deadline: '', addedDate: ''},
         ]
     }
 
-    const endState = tasksReducer(startState, addTaskAC('new title', todolistId1))
+    const endState = tasksReducer(startState, addTaskAC({
+        id: v1(), title: 'NEW', description: '', todoListId: todolistId1, order: 0, status: 1, priority: TaskPriority.Low, startDate: '', deadline: '', addedDate: ''
+    }))
 
     expect(endState[todolistId1].length).toBe(5)
     expect(endState[todolistId2].length).toBe(3)
-    expect(endState[todolistId1][0].title).toBe('new title')
+    expect(endState[todolistId1][0].title).toBe('NEW')
+    expect(endState[todolistId1][0].id).toBeDefined()
 })
 
 test('correct task should be removed', ()=>{
