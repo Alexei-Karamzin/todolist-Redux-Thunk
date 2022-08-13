@@ -7,7 +7,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import {useSelector} from "react-redux";
 import {
     addTaskTC,
-    changeTaskStatusAC,
+    changeTaskStatusTC,
     changeTaskTitleTC,
     removeTasksTC
 } from "../state/reducers/tasks-reducer";
@@ -55,7 +55,7 @@ export function App() {
     }, [dispatch])
 
     const changeTaskTitle = useCallback((todolistId: string, taskId: string, title: string) => {
-        dispatch(changeTaskTitleTC(taskId, title, todolistId))
+        dispatch(changeTaskTitleTC(taskId, {title}, todolistId))
     }, [dispatch])
 
     const removeTask = useCallback((todolistId: string, taskId: string) => {
@@ -63,7 +63,7 @@ export function App() {
     }, [dispatch])
 
     const changeTaskStatus = useCallback((taskId: string, status: TaskStatuses, todolistId: string) => {
-        dispatch(changeTaskStatusAC(taskId, status, todolistId))
+        dispatch(changeTaskStatusTC(taskId, {status}, todolistId))
     }, [dispatch])
 
     const addTask = useCallback((title: string, todolistId: string) => {

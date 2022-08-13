@@ -1,6 +1,6 @@
 import {v1} from "uuid";
 import {TaskStateType} from "../../App/App";
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, setTaskAC, tasksReducer} from "./tasks-reducer";
+import {addTaskAC, updateTaskAC, changeTaskTitleAC, removeTaskAC, setTaskAC, tasksReducer} from "./tasks-reducer";
 import {TaskPriority, TaskStatuses} from "../../api/tasks-api";
 import {setTodolistAC} from "./todolists-reducer";
 
@@ -75,7 +75,7 @@ test('correct task should be change status', ()=>{
         ]
     }
 
-    const endState = tasksReducer(startState, changeTaskStatusAC('2', TaskStatuses.Completed, todolistId1))
+    const endState = tasksReducer(startState, updateTaskAC('2', TaskStatuses.Completed, todolistId1))
 
     expect(endState[todolistId1].length).toBe(4)
     expect(endState[todolistId2].length).toBe(3)
