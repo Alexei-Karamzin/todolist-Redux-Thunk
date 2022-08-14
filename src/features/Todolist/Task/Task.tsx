@@ -2,9 +2,9 @@ import React, {ChangeEvent, useCallback} from "react";
 import {Checkbox, IconButton} from "@mui/material";
 import CheckCircleOutlineSharpIcon from "@mui/icons-material/CheckCircleOutlineSharp";
 import CheckCircleSharpIcon from "@mui/icons-material/CheckCircleSharp";
-import {EditableSpan} from "../EditebleSpan/EditableSpan";
+import {EditableSpan} from "../../../component/EditableSpan/EditableSpan";
 import RestoreFromTrashSharpIcon from "@mui/icons-material/RestoreFromTrashSharp";
-import {TaskStatuses, TaskType} from "../../api/tasks-api";
+import {TaskStatuses, TaskType} from "../../../api/tasks-api";
 
 type TaskPropsType = {
     task: TaskType

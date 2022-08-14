@@ -1,14 +1,14 @@
 import React, {useCallback, useEffect} from "react";
 import {FilterValueType} from "../../App/App";
-import {AddItemForm} from "../AddItemForm/AddItemForm";
-import {EditableSpan} from "../EditebleSpan/EditableSpan";
+import {AddItemForm} from "../../component/AddItemForm/AddItemForm";
+import {EditableSpan} from "../../component/EditableSpan/EditableSpan";
 
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
 import {Button} from "@mui/material";
-import {Task} from "../Tasks/Task";
+import {Task} from "./Task/Task";
 import {TaskStatuses, TaskType} from "../../api/tasks-api";
-import { fetchTasksTC } from "../../state/reducers/tasks-reducer";
-import {useAppDispatch} from "../../state/store";
+import { fetchTasksTC } from "./tasks-reducer";
+import {useAppDispatch} from "../../App/store";
 
 type TodolistPropsType = {
     todolistId: string

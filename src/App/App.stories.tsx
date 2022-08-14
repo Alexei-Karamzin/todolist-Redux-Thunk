@@ -2,7 +2,7 @@ import React from 'react';
 import { Meta, Story} from '@storybook/react';
 
 import {App} from "./App";
-import {ReduxStoreProviderDecorator} from "../state/ReduxStoreProviderDecorator";
+import {ReduxStoreProviderDecorator} from "./ReduxStoreProviderDecorator";
 
 export default {
     title: 'TODOLIST/App',
