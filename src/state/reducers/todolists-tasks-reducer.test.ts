@@ -6,11 +6,14 @@ import {TaskPriority} from "../../api/tasks-api";
 
 test('property with todolistId should be added', () => {
     const startTaskState: TaskStateType = {}
-    const startTodolistState: Array<TodolistDomainType> = [
-        {id: '1', order: 1, title: 'title', addedDate: '', filter: "all"}
-    ]
+    const startTodolistState: Array<TodolistDomainType> =
+        [
+            {id: '1', order: 1, title: 'title', addedDate: '', filter: "all"}
+        ]
+    const newTodolist = {id: '2', order: 1, title: 'NEW', addedDate: '', filter: "all"}
 
-    const action = addTodolistAC('new todolist')
+
+    const action = addTodolistAC(newTodolist)
     const endTasksState = tasksReducer(startTaskState, action)
     const endTodolistsState = todolistsReducer(startTodolistState, action)
 
@@ -18,8 +21,8 @@ test('property with todolistId should be added', () => {
     const idFromTasks = keys[0]
     const idFromTodolists = endTodolistsState[0].id
 
-    expect(idFromTasks).toBe(action.todolistId)
-    expect(idFromTodolists).toBe(action.todolistId)
+    expect(idFromTasks).toBe(action.todolist.id)
+    expect(idFromTodolists).toBe(action.todolist.id)
 })
 
 test('property with todolistId should be deleted', () => {

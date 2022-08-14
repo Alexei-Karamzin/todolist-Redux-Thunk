@@ -12,58 +12,7 @@ const instance = axios.create({
     ...settings
 })
 
-export type TaskType = {
-    id: string
-    title: string
-    description: string
-    todoListId: string
-    order: number
-    status: TaskStatuses
-    priority: TaskPriority
-    startDate: string
-    deadline: string
-    addedDate: string
-}
-
-type ResponseType<D = {}> = {
-    resultCode: number,
-    messages: string[],
-    data: D
-}
-
-export enum TaskStatuses {
-    New,
-    InProgress,
-    Completed,
-    Graft
-}
-
-export enum TaskPriority {
-    Low,
-    Middle,
-    Hi,
-    Urgently,
-    Later
-}
-
-type GetTasksResponse = {
-    items: Array<TaskType>
-    totalCount: number
-    error: string
-}
-
-type CreateUpdateTaskType = {
-    item: TaskType
-}
-
-export type UpdateTaskModelType = {
-    title: string
-    description: string
-    status: number
-    priority: number
-    startDate: string
-    deadline: string
-}
+// api
 
 export const tasksApi = {
     getTasks(todolistId: string) {
@@ -78,4 +27,53 @@ export const tasksApi = {
     updateTask(todolistId: string, taskId: string, model: UpdateTaskModelType) {
         return instance.put<ResponseType<CreateUpdateTaskType>>(`todo-lists/${todolistId}/tasks/${taskId}`, model)
     }
+}
+
+// types
+
+export enum TaskStatuses {
+    New,
+    InProgress,
+    Completed,
+    Graft
+}
+export enum TaskPriority {
+    Low,
+    Middle,
+    Hi,
+    Urgently,
+    Later
+}
+export type TaskType = {
+    id: string
+    title: string
+    description: string
+    todoListId: string
+    order: number
+    status: TaskStatuses
+    priority: TaskPriority
+    startDate: string
+    deadline: string
+    addedDate: string
+}
+type ResponseType<D = {}> = {
+    resultCode: number,
+    messages: string[],
+    data: D
+}
+type GetTasksResponse = {
+    items: Array<TaskType>
+    totalCount: number
+    error: string
+}
+type CreateUpdateTaskType = {
+    item: TaskType
+}
+export type UpdateTaskModelType = {
+    title: string
+    description: string
+    status: number
+    priority: number
+    startDate: string
+    deadline: string
 }

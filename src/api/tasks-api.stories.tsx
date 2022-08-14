@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react'
-import {todolistsApi} from "./todolists-api";
 import {tasksApi} from "./tasks-api";
 
 export default {
