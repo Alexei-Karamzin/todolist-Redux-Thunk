@@ -82,16 +82,19 @@ export const removeTasksTC = (todolistId: string, taskId: string) => (dispatch: 
         })
 }
 export const addTaskTC = (todolistId: string, title: string) => (dispatch: Dispatch<ActionType>) => {
+    dispatch(setStatusAC('loading'))
     tasksApi.createTask(todolistId, title)
         .then(res => {
             if (res.data.resultCode === 0) {
                 dispatch(addTaskAC(res.data.data.item))
+                dispatch(setStatusAC('succeeded'))
             } else {
                 if (res.data.messages.length) {
                     dispatch(setErrorAC(res.data.messages[0]))
                 } else {
                     dispatch(setErrorAC('ERROR'))
                 }
+                dispatch(setStatusAC('failed'))
             }
         })
 }

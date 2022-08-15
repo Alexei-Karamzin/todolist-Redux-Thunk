@@ -6,16 +6,18 @@ import { AppRootStateType} from "./store";
 import { tasksReducer } from '../features/Todolist/tasks-reducer'
 import { todolistsReducer } from '../features/Todolist/todolists-reducer'
 import {TaskPriority} from "../api/tasks-api";
+import {appReducer} from "./app-reducer";
 
 const rootReducer = combineReducers({
     tasks: tasksReducer,
-    todolists: todolistsReducer
+    todolists: todolistsReducer,
+    app: appReducer
 })
 
 const initialGlobalState: AppRootStateType = {
     todolists: [
-        {id: 'todolistId1', title: 'What to learn', filter: 'all', order: 0, addedDate: ''},
-        {id: 'todolistId2', title: 'What to buy', filter: 'all', order: 0, addedDate: ''}
+        {id: 'todolistId1', title: 'What to learn', filter: 'all', order: 0, addedDate: '', entityStatus: "idle"},
+        {id: 'todolistId2', title: 'What to buy', filter: 'all', order: 0, addedDate: '', entityStatus: "idle"}
     ],
     tasks: {
         ['todolistId1']: [

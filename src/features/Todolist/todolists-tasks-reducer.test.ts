@@ -8,7 +8,7 @@ test('property with todolistId should be added', () => {
     const startTaskState: TaskStateType = {}
     const startTodolistState: Array<TodolistDomainType> =
         [
-            {id: '1', order: 1, title: 'title', addedDate: '', filter: "all"}
+            {id: '1', order: 1, title: 'title', addedDate: '', filter: "all", entityStatus: "idle"}
         ]
     const newTodolist = {id: '2', order: 1, title: 'NEW', addedDate: '', filter: "all"}
 
