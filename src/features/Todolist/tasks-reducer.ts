@@ -7,6 +7,7 @@ import {
 import {tasksApi,TaskType, UpdateTaskModelType} from "../../api/tasks-api";
 import {Dispatch} from "redux";
 import {AppRootStateType} from "../../App/store";
+import {setErrorAC, SetErrorActionType, setStatusAC, SetStatusActionType} from "../../App/app-reducer";
 
 const initialState: TaskStateType = {}
 
@@ -67,9 +68,11 @@ export const setTaskAC = (tasks: Array<TaskType>, todolistId: string) =>
 // thunks
 
 export const fetchTasksTC = (todolistId: string) => (dispatch: Dispatch<ActionType>) => {
+    dispatch(setStatusAC('loading'))
     tasksApi.getTasks(todolistId)
         .then((res) => {
             dispatch(setTaskAC(res.data.items, todolistId))
+            dispatch(setStatusAC('succeeded'))
         })
 }
 export const removeTasksTC = (todolistId: string, taskId: string) => (dispatch: Dispatch<ActionType>) => {
@@ -81,7 +84,15 @@ export const removeTasksTC = (todolistId: string, taskId: string) => (dispatch: 
 export const addTaskTC = (todolistId: string, title: string) => (dispatch: Dispatch<ActionType>) => {
     tasksApi.createTask(todolistId, title)
         .then(res => {
-            dispatch(addTaskAC(res.data.data.item))
+            if (res.data.resultCode === 0) {
+                dispatch(addTaskAC(res.data.data.item))
+            } else {
+                if (res.data.messages.length) {
+                    dispatch(setErrorAC(res.data.messages[0]))
+                } else {
+                    dispatch(setErrorAC('ERROR'))
+                }
+            }
         })
 }
 export const changeTaskTitleTC = (taskId: string, domainModel: UpdateDomainTaskModelType, todolistId: string) => (dispatch: Dispatch<ActionType>, getState: () => AppRootStateType) => {
@@ -130,7 +141,6 @@ export const changeTaskStatusTC = (taskId: string, domainModel: UpdateDomainTask
         })
 }
 
-
 // types
 
 type ActionType =
@@ -141,6 +151,8 @@ type ActionType =
     | RemoveTodolistActionType
     | SetTodolistActionType
     | ReturnType<typeof setTaskAC>
+    | SetErrorActionType
+    | SetStatusActionType
 
 export type UpdateDomainTaskModelType = {
     title?: string

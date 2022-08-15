@@ -21,7 +21,7 @@ export const GetTodolists = () => {
 export const CreateTodolist = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
-        todolistsApi.createTodolist()
+        todolistsApi.createTodolist('new')
             .then((res) => {
                 setState(res.data)
             })
