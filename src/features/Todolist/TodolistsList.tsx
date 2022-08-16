@@ -77,9 +77,7 @@ export const TodolistsList = ({demo = false}: PropsType) => {
                     return <Grid item key={tl.id}>
                         <Paper elevation={3} style={{padding: '10px'}}>
                             <TodoList
-                                key={tl.id}
-                                todolistId={tl.id}
-                                title={tl.title}
+                                todolist={tl}
                                 tasks={tasksForTodolist}
                                 removeTask={removeTask}
                                 changeFilter={changeFilter}
@@ -88,7 +86,6 @@ export const TodolistsList = ({demo = false}: PropsType) => {
                                 removeTodolist={removeTodolist}
                                 changeTaskTitle={changeTaskTitle}
                                 onChangeTitle={changeTodolistTitle}
-                                filter={tl.filter}
                                 demo={demo}
                             />
                         </Paper>

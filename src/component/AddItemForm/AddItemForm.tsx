@@ -4,9 +4,10 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 
 type addItemFormPropsType = {
     addItem: (title: string) => void
+    disabled?: boolean
 }
 
-export const AddItemForm = React.memo((props: addItemFormPropsType) => {
+export const AddItemForm = React.memo(({addItem, disabled = false}: addItemFormPropsType) => {
 
     console.log('AddItemForm call')
 
@@ -28,7 +29,7 @@ export const AddItemForm = React.memo((props: addItemFormPropsType) => {
 
     const addTaskOnClickHandler = () => {
         if (title.trim() !== '') {
-            props.addItem(title.trim())
+            addItem(title.trim())
             setTitle('')
         } else {
             setError('error')
@@ -37,6 +38,7 @@ export const AddItemForm = React.memo((props: addItemFormPropsType) => {
 
     return <div>
         <TextField
+            disabled={disabled}
             label={'text'}
             value={title}
             variant="outlined"
@@ -46,7 +48,7 @@ export const AddItemForm = React.memo((props: addItemFormPropsType) => {
             helperText={error}
         />
 
-        <IconButton onClick={addTaskOnClickHandler}>
+        <IconButton onClick={addTaskOnClickHandler} disabled={disabled}>
             <AddBoxIcon />
         </IconButton>
     </div>

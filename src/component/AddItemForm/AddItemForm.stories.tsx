@@ -23,3 +23,9 @@ AddItemFormStory.args = {
     addItem: action('add item')
 };
 
+export const AddItemFormDisableStory = Template.bind({});
+
+AddItemFormDisableStory.args = {
+    addItem: action('add item'),
+    disabled: true
+};
