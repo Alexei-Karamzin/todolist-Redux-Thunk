@@ -16,13 +16,20 @@ import {AddItemForm} from "../../component/AddItemForm/AddItemForm";
 import {TodoList} from "./TodoList";
 import {FilterValueType, TaskStateType} from "../../App/App";
 
-export const TodolistsList = () => {
+type PropsType = {
+    demo?: boolean
+}
+
+export const TodolistsList = ({demo = false}: PropsType) => {
 
     const dispatch = useAppDispatch()
     const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TaskStateType>(state => state.tasks)
 
     useEffect(() => {
+        if (demo) {
+            return
+        }
         dispatch(fetchTodolistsTC())
     }, [])
 
@@ -82,6 +89,7 @@ export const TodolistsList = () => {
                                 changeTaskTitle={changeTaskTitle}
                                 onChangeTitle={changeTodolistTitle}
                                 filter={tl.filter}
+                                demo={demo}
                             />
                         </Paper>
                     </Grid>
