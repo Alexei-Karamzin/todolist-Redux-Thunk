@@ -9,7 +9,7 @@ import {ErrorSnackbar} from "../component/ErrorSnackbar/ErrorSnackbar";
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "./store";
 import {RequestStatusType} from "./app-reducer";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import {Login} from '../features/Login/Login';
 
 export type FilterValueType = 'all' | 'completed' | 'active'
@@ -27,7 +27,6 @@ export function App({demo = false}: PropsType) {
     const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
 
     return (
-        <BrowserRouter>
             <div className="App">
                 <ErrorSnackbar />
                 <AppBar position="static">
@@ -55,7 +54,6 @@ export function App({demo = false}: PropsType) {
                     </Routes>
                 </Container>
             </div>
-        </BrowserRouter>
     );
 }
 
