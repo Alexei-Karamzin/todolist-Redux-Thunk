@@ -7,7 +7,7 @@ import {
 import {tasksApi,TaskType, UpdateTaskModelType} from "../../api/tasks-api";
 import {Dispatch} from "redux";
 import {AppRootStateType} from "../../App/store";
-import {setAppErrorAC, SetErrorActionType, setAppStatusAC, SetStatusActionType} from "../../App/app-reducer";
+import {SetErrorActionType, setAppStatusAC, SetStatusActionType} from "../../App/app-reducer";
 import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
 
 const initialState: TaskStateType = {}
