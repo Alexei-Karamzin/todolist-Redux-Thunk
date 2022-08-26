@@ -1,7 +1,7 @@
 import {FilterValueType} from "../../App/App";
 import {todolistsApi, TodolistType} from "../../api/todolists-api";
 import {Dispatch} from "redux";
-import {RequestStatusType, setAppStatusAC, SetStatusActionType} from "../../App/app-reducer";
+import {RequestStatusType, setAppStatusAC, SetAppStatusActionType} from "../../App/app-reducer";
 import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
 
 const initialState: Array<TodolistDomainType> = []
@@ -48,6 +48,9 @@ export const fetchTodolistsTC = () => (dispatch: Dispatch<ActionType>) => {
         .then(res => {
             dispatch(setTodolistAC(res.data))
             dispatch(setAppStatusAC('succeeded'))
+        })
+        .catch(err => {
+            handleServerNetworkError(err, dispatch)
         })
 }
 export const removeTodolistTC = (id: string) => (dispatch: Dispatch<ActionType>) => {
@@ -105,7 +108,7 @@ type ActionType =
     | ReturnType<typeof changeTodolistTitleAC>
     | ReturnType<typeof changeTodolistFilterAC>
     | SetTodolistActionType
-    | SetStatusActionType
+    | SetAppStatusActionType
     | ReturnType<typeof changeTodolistEntityStatusAC>
 
 export type AddTodolistActionType = ReturnType<typeof addTodolistAC>

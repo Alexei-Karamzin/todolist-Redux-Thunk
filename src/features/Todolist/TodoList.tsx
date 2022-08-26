@@ -7,7 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import {Button} from "@mui/material";
 import {Task} from "./Task/Task";
 import {TaskStatuses, TaskType} from "../../api/tasks-api";
-import {fetchTasksTC} from "./tasks-reducer";
+import {fetchTasksTC} from "./Task/tasks-reducer";
 import {useAppDispatch} from "../../App/store";
 import {TodolistDomainType} from "./todolists-reducer";
 

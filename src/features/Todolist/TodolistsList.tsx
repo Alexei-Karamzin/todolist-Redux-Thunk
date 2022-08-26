@@ -9,12 +9,13 @@ import {
     TodolistDomainType
 } from "./todolists-reducer";
 import React, {useCallback, useEffect} from "react";
-import {addTaskTC, changeTaskStatusTC, changeTaskTitleTC, removeTasksTC} from "./tasks-reducer";
+import {addTaskTC, changeTaskStatusTC, changeTaskTitleTC, removeTasksTC} from "./Task/tasks-reducer";
 import {TaskStatuses} from "../../api/tasks-api";
 import {Grid, Paper} from "@mui/material";
 import {AddItemForm} from "../../component/AddItemForm/AddItemForm";
 import {TodoList} from "./TodoList";
 import {FilterValueType, TaskStateType} from "../../App/App";
+import {Navigate} from "react-router-dom";
 
 type PropsType = {
     demo?: boolean
@@ -25,9 +26,10 @@ export const TodolistsList = ({demo = false}: PropsType) => {
     const dispatch = useAppDispatch()
     const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TaskStateType>(state => state.tasks)
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
 
     useEffect(() => {
-        if (demo) {
+        if (demo || !isLoggedIn) {
             return
         }
         dispatch(fetchTodolistsTC())
@@ -64,6 +66,10 @@ export const TodolistsList = ({demo = false}: PropsType) => {
     const addTask = useCallback((title: string, todolistId: string) => {
         dispatch(addTaskTC(todolistId, title))
     }, [dispatch])
+
+    if(!isLoggedIn) {
+        return <Navigate to='/login'/>
+    }
 
     return <>
         <Grid container style={{padding: '20px'}}>

@@ -1,14 +1,14 @@
-import {TaskStateType} from "../../App/App";
+import {TaskStateType} from "../../../App/App";
 import {
     AddTodolistActionType,
     RemoveTodolistActionType,
     SetTodolistActionType
-} from "./todolists-reducer";
-import {tasksApi,TaskType, UpdateTaskModelType} from "../../api/tasks-api";
+} from "../todolists-reducer";
+import {tasksApi,TaskType, UpdateTaskModelType} from "../../../api/tasks-api";
 import {Dispatch} from "redux";
-import {AppRootStateType} from "../../App/store";
-import {SetErrorActionType, setAppStatusAC, SetStatusActionType} from "../../App/app-reducer";
-import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
+import {AppRootStateType} from "../../../App/store";
+import {SetAppErrorActionType, setAppStatusAC, SetAppStatusActionType} from "../../../App/app-reducer";
+import {handleServerAppError, handleServerNetworkError} from "../../../utils/error-utils";
 
 const initialState: TaskStateType = {}
 
@@ -168,8 +168,8 @@ type ActionType =
     | RemoveTodolistActionType
     | SetTodolistActionType
     | ReturnType<typeof setTaskAC>
-    | SetErrorActionType
-    | SetStatusActionType
+    | SetAppErrorActionType
+    | SetAppStatusActionType
 
 export type UpdateDomainTaskModelType = {
     title?: string

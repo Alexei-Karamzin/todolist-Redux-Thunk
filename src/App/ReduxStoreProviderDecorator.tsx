@@ -3,7 +3,7 @@ import { Provider } from 'react-redux'
 import {applyMiddleware, combineReducers, createStore} from 'redux'
 import { v1 } from 'uuid'
 import { AppRootStateType} from "./store";
-import { tasksReducer } from '../features/Todolist/tasks-reducer'
+import { tasksReducer } from '../features/Todolist/Task/tasks-reducer'
 import { todolistsReducer } from '../features/Todolist/todolists-reducer'
 import {TaskPriority} from "../api/tasks-api";
 import {appReducer} from "./app-reducer";
@@ -32,7 +32,11 @@ const initialGlobalState: AppRootStateType = {
     },
     app: {
         error: null,
-        status: 'idle'
+        status: 'idle',
+        isInitialized: true
+    },
+    auth: {
+        isLoggedIn: true
     }
 }
 
